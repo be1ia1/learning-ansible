@@ -1,0 +1,20 @@
+---
+- name: Package managment - update, enable epel, install common packages
+  hosts: rocky
+  become: true
+  tasks:
+    - name: Upgrade all packages
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+    - name: Install epel
+      ansible.builtin.dnf:
+        name:
+          - epel-release
+        state: latest
+    - name: Intall common packages
+      ansible.builtin.dnf:
+        name:
+          - htop
+          - mc
+          - nano

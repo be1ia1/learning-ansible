@@ -1,0 +1,17 @@
+---
+- name: Install and configure QEMU
+  hosts: rocky
+  become: true
+  tasks:
+    - name: Install QEMU packages
+      ansible.builtin.dnf:
+        name:
+          - qemu-kvm
+          - libvirt
+          - virt-install
+        state: latest
+    - name: Enable and start libvirtd service
+      ansible.builtin.service:
+        name: libvirtd
+        state: started
+        enabled: yes

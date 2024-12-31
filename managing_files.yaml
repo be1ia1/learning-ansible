@@ -1,0 +1,34 @@
+---
+- name: Install and configure vsftpd
+  hosts: ubuntu
+  tasks:
+    - name: install package
+      ansible.builtin.package:
+        name: vsftpd
+        state: latest
+      become: true
+    - name: fetch config file
+      ansible.builtin.fetch:
+        src: /etc/vsftpd.conf
+        dest: tmp/vsftpd.conf
+        flat: true
+
+- name: Modify local file
+  hosts: localhost
+  tasks:
+    - name: modify file
+      ansible.builtin.lineinfile:
+        insertafter: EOF
+        path: tmp/vsftpd.conf
+        line: "\n# written on {{ ansible_hostname }}"
+
+- name: modify remote config
+  hosts: ubuntu
+  tasks:
+    - name: modify remote config
+      ansible.builtin.blockinfile:
+        path: /etc/vsftpd.conf
+        prepend_newline: true
+        insertafter: EOF
+        block: "# written on {{ ansible_hostname }}"
+      become: true
