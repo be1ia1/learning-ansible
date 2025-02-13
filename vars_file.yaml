@@ -1,0 +1,10 @@
+---
+- name: using a variable include file
+  hosts: rocky
+  gather_facts: no
+  vars_files: myvars.yaml
+  tasks:
+    - name: install package {{ mypackage }}
+      yum:
+        name: "{{ mypackage }}"
+        state: latest

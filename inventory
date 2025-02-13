@@ -2,3 +2,5 @@
 ls-test-01
 [rocky]
 ls-test-02
+[webservers]
+ls-test-01

@@ -1,0 +1,6 @@
+---
+- name: Show current values
+  hosts: webservers
+  tasks:
+  - debug:
+      msg: The package is {{ web_package }} and {{ web_service }}

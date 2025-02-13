@@ -1,0 +1,17 @@
+---
+- name: Install nginx using roles
+  hosts: rocky
+  become: true
+  pre_tasks:
+    - name: remove httpd
+      ansible.builtin.dnf:
+        name: httpd
+        state: absent
+    - name: update cache
+      ansible.builtin.dnf:
+        update_cache: true
+  roles:
+    - { role: geerlingguy.nginx }
+  post_tasks:  
+  - name: Clean cache
+    ansible.builtin.command: yum clean all

@@ -1,0 +1,25 @@
+---
+- name: install and run vsftpd
+  gather_facts: no
+  hosts: all
+  tasks:
+    - name: install package vsftpd and run
+      package:
+        name: vsftpd
+        state: latest
+    - name: run and enable vsftpd
+      service:
+        name: vsftpd
+        state: started
+        enabled: yes
+
+- name: open port for service
+  gather_facts: no
+  hosts: rocky
+  tasks:
+    - name: open port
+      firewalld:
+        service: ftp
+        permanent: yes
+        state: enabled
+        immediate: yes
