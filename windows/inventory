@@ -1,9 +1,9 @@
 [server]
-ws-test-01
+windows-test-01
 
 [server:vars]
 ansible_user=ansible
-ansible_password=password
+ansible_password=P@ssw0RD
 ansible_connection=winrm
 ansible_winrm_transport=credssp
 ansible_winrm_server_cert_validation=ignore
